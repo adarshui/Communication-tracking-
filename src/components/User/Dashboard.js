@@ -1,10 +1,35 @@
 // src/components/User/Dashboard.js
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { fetchCompanies } from '../../services/api';
 import { formatDate } from '../../utils/dateUtils';
 
 const Dashboard = () => {
-  const companies = useSelector((state) => state.user.companies);
+  const [companies, setCompanies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getCompanies = async () => {
+      try {
+        const data = await fetchCompanies();
+        setCompanies(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getCompanies();
+  }, []);
+
+  if (loading) {
+    return <div className="p-4">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="p-4">Error: {error}</div>;
+  }
 
   return (
     <div className="p-4">
@@ -38,3 +63,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

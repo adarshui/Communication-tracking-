@@ -1,16 +1,14 @@
-// services/api.js
+// src/services/api.js
 import axios from 'axios';
 
-const API_URL = 'https://your-api-url.com';
+const API_URL = 'https://your-vercel-backend-url.vercel.app/api'; // Update this URL based on your backend deployment
 
 export const fetchCompanies = async () => {
-  const response = await axios.get(`${API_URL}/companies`);
-  return response.data;
+  try {
+    const response = await axios.get(`${API_URL}/companies`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching companies:', error);
+    throw error;
+  }
 };
-
-export const addCompany = async (companyData) => {
-  const response = await axios.post(`${API_URL}/companies`, companyData);
-  return response.data;
-};
-
-// Add more API functions as needed
