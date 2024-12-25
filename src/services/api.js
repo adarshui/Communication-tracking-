@@ -1,7 +1,8 @@
 // src/services/api.js
 import axios from 'axios';
 
-const API_URL = 'https://your-vercel-backend-url.vercel.app/api'; // Update this URL based on your backend deployment
+// Replace with your actual deployed backend URL
+const API_URL = 'https://communication-tracker-i199hohgg-adarshuis-projects.vercel.app/api';
 
 export const fetchCompanies = async () => {
   try {
